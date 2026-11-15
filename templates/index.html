@@ -1,0 +1,80 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Financial Fraud Detection System</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1>Financial Fraud Detection System</h1>
+
+        <p class="description">
+            Enter transaction details to detect potential fraud.
+        </p>
+
+        <form action="/predict" method="POST">
+
+            <div class="form-group">
+                <label>Transaction Step:</label>
+                <input type="number" name="step" min="1" required>
+            </div>
+
+            <div class="form-group">
+                <label>Transaction Type:</label>
+                <select name="type" required>
+                    <option value="CASH_IN">Cash In</option>
+                    <option value="CASH_OUT">Cash Out</option>
+                    <option value="DEBIT">Debit</option>
+                    <option value="PAYMENT">Payment</option>
+                    <option value="TRANSFER">Transfer</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Amount:</label>
+                <input type="number" step="any" name="amount" min="0" required>
+            </div>
+
+            <div class="form-group">
+                <label>Old Balance Origin:</label>
+                <input type="number" step="any" name="oldbalanceOrg" min="0" required>
+            </div>
+
+            <div class="form-group">
+                <label>New Balance Origin:</label>
+                <input type="number" step="any" name="newbalanceOrig" min="0" required>
+            </div>
+
+            <div class="form-group">
+                <label>Old Balance Destination:</label>
+                <input type="number" step="any" name="oldbalanceDest" min="0" required>
+            </div>
+
+            <div class="form-group">
+                <label>New Balance Destination:</label>
+                <input type="number" step="any" name="newbalanceDest" min="0" required>
+            </div>
+
+            <button type="submit">Detect Fraud</button>
+
+        </form>
+
+        {% if prediction %}
+        <div class="result">
+            <h2>Prediction: {{ prediction }}</h2>
+            <p>Fraud Probability: {{ probability }}%</p>
+        </div>
+        {% endif %}
+
+    </div>
+
+</body>
+</html>
